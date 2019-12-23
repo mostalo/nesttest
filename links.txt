@@ -1,0 +1,3 @@
+https://medium.com/@shaibenshimol/nestjs-and-mysql-in-10-minutes-711e02ec1dab
+https://github.com/lujakob/nestjs-realworld-example-app
+https://ionicframework.com/blog/full-stack-typescript-with-ionic-angular-and-nestjs-part-2/
