@@ -6,10 +6,12 @@ import { AppService } from './app.service';
 import { ProductsModule } from './products/products.module';
 import { HttpErrorFilter } from './shared/http-error.filter';
 import { LoggingInterceptor } from './shared/logging.interceptor';
+import { UserModule } from './user/user.module';
 
 @Module({
   imports: [ TypeOrmModule.forRoot(),
-    ProductsModule
+    ProductsModule,
+    UserModule
   
   ],
   controllers: [AppController],

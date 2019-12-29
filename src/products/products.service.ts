@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Product } from './products.entity';
@@ -19,18 +19,33 @@ export class ProductsService {
     }
 
     async read(id: string){
-        return await this.productRepository.findOne({ where: { id }});
+        const product = await this.productRepository.findOne({ where: { id }});
+        if(!product) {
+            throw new HttpException('Not Found', HttpStatus.NOT_FOUND);
+        }
+        return product;
     }
 
     async update(id: string, data: Partial<ProductDTO>) {
+     let product = await this.productRepository.findOne({ where: { id }});
+     if(!product) {
+        throw new HttpException('Not Found', HttpStatus.NOT_FOUND);
+    }
         await this.productRepository.update(id , data);
-        return this.productRepository.findOne({ where: { id }});
+        product = await this.productRepository.findOne({ where: { id }});
+        return product;
     }
 
     async destroy(id: string){
-        await this.productRepository.delete(id);
-        return { deleted: true};
-    }
+        
+     const product = await this.productRepository.findOne({ where: { id }});
 
-    
+        if(!product) {
+            throw new HttpException('Not Found', HttpStatus.NOT_FOUND);
+        }
+        await this.productRepository.delete(id);
+        return product;
+    }
+ 
+     
 }
